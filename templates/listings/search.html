@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<section class="breadcrumb-section spad set-bg" data-setbg="{% static 'img/breadcrumb-bg.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <h4>Property Grid</h4>
+                    <div class="bt-option">
+                        <a href="{% url 'index' %}"><i class="fa fa-home"></i> Home</a>
+                        <span>Property</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Search Section Begin -->
+<div class="search-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="section-title">
+                    <h4>Where would you rather live?</h4>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="change-btn">
+                    <div class="cb-item">
+                        <label for="cb-rent" class="active">
+                            For Rent
+                            <input type="radio" id="cb-rent">
+                        </label>
+                    </div>
+                    <div class="cb-item">
+                        <label for="cb-sale">
+                            For Sale
+                            <input type="radio" id="cb-sale">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-form-content">
+          <form action="{% url 'search' %}" class="filter-form">
+            <select name="city" class="sm-width">
+                  <option value="">City</option>
+                  {% for key,value in city_choices.items %}
+                  <option value="{{key}}">{{value}}</option>
+                  {% endfor %}
+              </select>
+                <select name="location" class="sm-width">
+                    <option value="">Location</option>
+                    {% for key,value in state_choice.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                </select>
+                <select name="property_type" class="sm-width">
+                    <option value="">Property Type</option>
+                    {% for key,value in property_type.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                </select>
+                <select name="bedroom" class="sm-width">
+                    <option value="">No Of Bedrooms</option>
+                    {% for key,value in bedroom_choices.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                </select>
+                <select name="bathroom" class="sm-width">
+                    <option value="">No Of Bathrooms</option>
+                    {% for key,value in bathroom_choices.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                </select>
+                <select name="price" class="sm-width">
+                    <option value="">Price</option>
+                    {% for key,value in price_choices.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                </select>
+                <select name="size" class="sm-width">
+                    <option value="">Sqft Size</option>
+                    {% for key,value in sqft_choice.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" class="search-btn sm-width" value="Search"</input>
+          </form>
+        </div>
+    </div>
+</div>
+<!-- Search Section End -->
+
+<!-- Property Section Begin -->
+<section class="property-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h4>PROPERTIES</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+          {% if properties %}
+            {% for property in properties %}
+            <div class="col-lg-4 col-md-6">
+                <div class="property-item">
+                    <div class="pi-pic set-bg" data-setbg="{{property.main_image.url}}">
+                        <div class="label">{{property.contract_type}}</div>
+                    </div>
+                    <div class="pi-text">
+                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <div class="pt-price">$ {{property.price}}</span></div>
+                        <h5><a href="{% url 'single_property' property.id %}">{{property.title}}</a></h5>
+                        <p><span class="icon_pin_alt"></span> {{property.address}}, {{property.city}}, {{property.state}} {{property.zipcode}}</p>
+                        <ul>
+                            <li><i class="fa fa-object-group"></i> {{property.sqft}}</li>
+                            <li><i class="fa fa-bathtub"></i> {{property.bathroom}}</li>
+                            <li><i class="fa fa-bed"></i> {{property.bedroom}}</li>
+                            <li><i class="fa fa-automobile"></i> {{property.garage}}</li>
+                        </ul>
+                        <div class="pi-agent">
+                            <div class="pa-item">
+                                <div class="pa-info">
+                                    <h6>Agent: <strong>{{property.agent}}</strong></h6>
+                                </div>
+                                <div class="pa-text">
+                                    {{property.mobile_number}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="col-lg-12">
+                <div class="loadmore-btn">
+                    <a href="#">Load more</a>
+                </div>
+            </div>
+            {% else %}
+            <h4>Sorry No Result Found</h4>
+            {% endif %}
+
+        </div>
+    </div>
+</section>
+<!-- Property Section End -->
+
+
+{% endblock %}

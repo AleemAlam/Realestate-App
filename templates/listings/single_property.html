@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<!-- Property Details Section Begin -->
+<section class="property-details-section">
+    <div class="property-pic-slider owl-carousel">
+        <div class="ps-item">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-12 p-0">
+                                <div class="ps-item-inner large-item set-bg" data-setbg="{{property1.main_image.url}}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                          {% if property1.image1 %}
+                            <div class="col-sm-6 p-0">
+                                <div class="ps-item-inner set-bg" data-setbg="{{property1.image1.url}}"></div>
+                            </div>
+                          {% endif %}
+                          {% if property1.image2 %}
+                            <div class="col-sm-6 p-0">
+                                <div class="ps-item-inner set-bg" data-setbg="{{property1.image2.url}}"></div>
+                            </div>
+                          {% endif %}
+                          {% if property1.image3 %}
+                            <div class="col-sm-6 p-0">
+                                <div class="ps-item-inner set-bg" data-setbg="{{property1.image3.url}}"></div>
+                            </div>
+                          {% endif %}
+                          {% if property1.image4 %}
+                            <div class="col-sm-6 p-0">
+                                <div class="ps-item-inner set-bg" data-setbg="{{property1.image4.url}}"></div>
+                            </div>
+                          {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="pd-text">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="pd-title">
+                                <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                                <div class="label">{{property1.contract_type}}</div>
+                                <div class="pt-price">$ {{property1.price}}</div>
+                                <h3>{{property1.title}}</h3>
+                                <p><span class="icon_pin_alt"></span> {{property1.address}}, {{property1.city}}, {{property1.state}} {{property1.zipcode}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pd-board">
+                        <div class="tab-board">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Overview</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Description</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Amenities</a>
+                                </li>
+                            </ul><!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                    <div class="tab-details">
+                                        <ul class="left-table">
+                                            <li>
+                                                <span class="type-name">Property Type</span>
+                                                <span class="type-value">{{property1.property_type}}</span>
+                                            </li>
+                                            <li>
+                                                <span class="type-name">Property ID</span>
+                                                <span class="type-value">#{{property1.id}}</span>
+                                            </li>
+                                            <li>
+                                                <span class="type-name">Price</span>
+                                                <span class="type-value">$ {{property1.price}}</span>
+                                            </li>
+                                            <li>
+                                                <span class="type-name">Year Built</span>
+                                                <span class="type-value">{{property1.year_built}}</span>
+                                            </li>
+                                            <li>
+                                                <span class="type-name">Contract type</span>
+                                                <span class="type-value">{{property1.contract_type}}</span>
+                                            </li>
+                                        </ul>
+                                        <ul class="right-table">
+                                            <li>
+                                                <span class="type-name">Home Area</span>
+                                                <span class="type-value">{{property1.build_area}}</span>
+                                            </li>
+                                            <li>
+                                                <span class="type-name">Bedrooms</span>
+                                                <span class="type-value">{{property1.bedroom}}</span>
+                                            </li>
+                                            <li>
+                                                <span class="type-name">Bathrooms</span>
+                                                <span class="type-value">{{property1.bathroom}}</span>
+                                            </li>
+                                            <li>
+                                                <span class="type-name">Agent</span>
+                                                <span class="type-value">{{property1.agent}}</span>
+                                            </li>
+                                            <li>
+                                                <span class="type-name">Garages</span>
+                                                <span class="type-value">{{property1.garage}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                    <div class="tab-desc">
+                                        <p>{{property1.desciption}}</p>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tabs-3" role="tabpanel">
+                                    <div class="tab-details">
+                                        <ul class="left-table">
+                                            <li>
+                                                <span class="type-name">Amenities</span>
+                                                <span class="type-value">{{property1.amenities}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pd-widget">
+                        {% if property1.floor_image %}
+                        <h4>Floor plans</h4>
+                        <img src="{{property.floor_image}}" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="pd-widget">
+                        <div class="map">
+                          <h4>Map</h4>
+                            <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD7e-D6F0MnYqT8alqs0R6RkEbSixyNQb8&q=Space+Needle,Seattle+WA" height="350" style="border:0;" allowfullscreen=""></iframe>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="pd-widget">
+                        <h4>Agent</h4>
+                        <div class="pd-agent">
+                            <div class="agent-pic">
+                                <img src="{{property1.agent.profile_pic.url}}" alt="">
+                            </div>
+                            <div class="agent-text">
+                                <div class="at-title">
+                                    <h6>{{property1.agent}}</h6>
+                                    <span>Founder & CEO</span>
+                                    <a href="#" class="primary-btn">VIew profile</a>
+                                </div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipis cing elit, eiusmod tempor incididunt</p>
+                                <div class="at-option">
+                                    <div class="at-number">{{property1.mobile_number}}</div>
+                                    <div class="at-social">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-envelope-o"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Property Details Section End -->
+{% include "map.html" %}
+{% endblock %}

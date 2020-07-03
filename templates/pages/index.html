@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<section class="hero-section">
+    <div class="container">
+        <div class="hs-slider owl-carousel">
+          {% for property in home_property %}
+            <div class="hs-item set-bg" data-setbg="{{property.main_image.url}}">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="hc-inner-text">
+                            <div class="hc-text">
+                                <h4>{{property.title}}</h4>
+                                <p><span class="icon_pin_alt"></span> {{property.city}}, {{property.state}}</p>
+                                <div class="label">For {{property.contract_type}}</div>
+                                <h5>$ {{property.price}}</h5>
+                            </div>
+                            <div class="hc-widget">
+                                <ul>
+                                    <li><i class="fa fa-object-group"></i> {{property.sqft}}</li>
+                                    <li><i class="fa fa-bathtub"></i> {{property.bathroom}}</li>
+                                    <li><i class="fa fa-bed"></i> {{property.bedroom}}</li>
+                                    <li><i class="fa fa-automobile"></i> {{property.garage}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Search Section Begin -->
+<div class="search-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="section-title">
+                    <h4>Where would you rather live?</h4>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="change-btn">
+                    <div class="cb-item">
+                        <label for="cb-rent" class="active">
+                            For Rent
+                            <input type="radio" id="cb-rent">
+                        </label>
+                    </div>
+                    <div class="cb-item">
+                        <label for="cb-sale">
+                            For Sale
+                            <input type="radio" id="cb-sale">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-form-content">
+          <form action="{% url 'search' %}" class="filter-form">
+            <select name="city" class="sm-width">
+                  <option value="">City</option>
+                  {% for key,value in city_choices.items %}
+                  <option value="{{key}}">{{value}}</option>
+                  {% endfor %}
+              </select>
+                <select name="location" class="sm-width">
+                    <option value="">Location</option>
+                    {% for key,value in state_choice.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                </select>
+                <select name="property_type" class="sm-width">
+                    <option value="">Property Type</option>
+                    {% for key,value in property_type.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                </select>
+                <select name="bedroom" class="sm-width">
+                    <option value="">No Of Bedrooms</option>
+                    {% for key,value in bedroom_choices.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                </select>
+                <select name="bathroom" class="sm-width">
+                    <option value="">No Of Bathrooms</option>
+                    {% for key,value in bathroom_choices.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                </select>
+                <select name="price" class="sm-width">
+                    <option value="">Price</option>
+                    {% for key,value in price_choices.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                </select>
+                <select name="Size" class="sm-width">
+                    <option value="">Sqft Size</option>
+                    {% for key,value in sqft_choice.items %}
+                    <option value="{{key}}">{{value}}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" class="search-btn sm-width" value="Search"</input>
+          </form>
+        </div>
+    </div>
+</div>
+<!-- Search Section End -->
+<!-- Property Section Begin -->
+<section class="property-section latest-property-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="section-title">
+                    <h4>Latest PROPERTY</h4>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="property-controls">
+                    <ul>
+                        <a style="font-size: 14px;
+                        color: #ffffff;
+                        font-weight: 700;
+                        letter-spacing: 0.5px;
+                        background: #00C89E;
+                        padding: 14px 30px;
+                        text-transform: uppercase;
+                        display: inline-block;" href="{% url 'all_property' %}">View All Properties</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row property-filter">
+          {% for latest in latest_property %}
+            {% if forloop.counter <= 6 %}
+            <div class="col-lg-4 col-md-6 mix all house">
+                <div class="property-item">
+                    <div class="pi-pic set-bg" data-setbg="{{latest.main_image.url}}">
+                        <div class="label">{{latest.contract_type}}</div>
+                    </div>
+                    <div class="pi-text">
+                        <div class="pt-price">$ {{latest.price}}</div>
+                        <h5><a href="{% url 'single_property' latest.id %}">{{latest.title}}</a></h5>
+                        <p><span class="icon_pin_alt"></span>{{latest.address}}, {{latest.city}}, {{latest.state}} {{latest.zipcode}}</p>
+                        <ul>
+                            <li><i class="fa fa-object-group"></i> {{latest.sqft}}</li>
+                            <li><i class="fa fa-bathtub"></i> {{latest.bathtub}}</li>
+                            <li><i class="fa fa-bed"></i> {{latest.bedroom}}</li>
+                            <li><i class="fa fa-automobile"></i> {{latest.garage}}</li>
+                        </ul>
+                        <div class="pi-agent">
+                            <div class="pa-item">
+                                <div class="pa-info">
+                                    <img src="{{latest.agent.profile_pic.url}}" alt="">
+                                    <h6>{{latest.agent}}</h6>
+                                </div>
+                                <div class="pa-text">
+                                    {{latest.mobile_number}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Property Section End -->
+<!-- Chooseus Section Begin -->
+<section class="chooseus-section spad set-bg" data-setbg="{% static 'img/chooseus/chooseus-bg.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="chooseus-text">
+                    <div class="section-title">
+                        <h4>Why choose us</h4>
+                    </div>
+                    <p>ASR Real Estate Group is small, focused and dedicated team of agents and staff who are committed to excellence for the customer experience. Our team has a strong work ethic and we believe in honesty in business and that this helps our clients get the best space possible for their individual needs. Each agent on this team brings a different perspective of experience which allows for a very rich source of ideas for our clients and leads. Our agents are also commercial property owners and investors as well.</p>
+                </div>
+                <div class="chooseus-features">
+                    <div class="cf-item">
+                        <div class="cf-pic">
+                            <img src="{% static 'img/chooseus/chooseus-icon-1.png' %}" alt="">
+                        </div>
+                        <div class="cf-text">
+                            <h5>Find your future home</h5>
+                            <p>We help you find a new home by offering a smart real estate.</p>
+                        </div>
+                    </div>
+                    <div class="cf-item">
+                        <div class="cf-pic">
+                            <img src="{% static 'img/chooseus/chooseus-icon-2.png' %}" alt="">
+                        </div>
+                        <div class="cf-text">
+                            <h5>Buy or rent homes</h5>
+                            <p>Millions of houses and apartments in your favourite cities</p>
+                        </div>
+                    </div>
+                    <div class="cf-item">
+                        <div class="cf-pic">
+                            <img src="{% static 'img/chooseus/chooseus-icon-3.png' %}" alt="">
+                        </div>
+                        <div class="cf-text">
+                            <h5>Experienced agents</h5>
+                            <p>Find an agent who knows your market best</p>
+                        </div>
+                    </div>
+                    <div class="cf-item">
+                        <div class="cf-pic">
+                            <img src="{% static 'img/chooseus/chooseus-icon-4.png' %}" alt="">
+                        </div>
+                        <div class="cf-text">
+                            <h5>List your own property</h5>
+                            <p>Sign up now and sell or rent your own properties</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Chooseus Section End -->
+<!-- Team Section Begin -->
+<section class="team-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <div class="section-title">
+                    <h4>Our Counselor</h4>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="team-btn">
+                    <a href="{% url 'agents' %}"><i class="fa fa-user"></i> ALL counselor</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+          {% for agent in agents %}
+            <div class="col-md-4">
+                <div class="ts-item">
+                    <div class="ts-text">
+                        <img src="{{agent.profile_pic.url}}" alt="">
+                        <h5>{{agent.name}}</h5>
+                        <span>{{agent.mobile_number}}</span>
+                        <p>{{agent.email}}</p>
+                        <div class="ts-social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-envelope-o"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Team Section End -->
+{% include "map.html" %}
+
+{% endblock %}
